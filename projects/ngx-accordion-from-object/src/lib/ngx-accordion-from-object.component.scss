@@ -1,0 +1,40 @@
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
+.parent-heading {
+    border: 1px solid lightgrey;
+    border-radius: 3%;
+    font-weight: bolder;
+    font-size:18px;
+    background: linear-gradient(#ededed, lightgrey);
+    cursor: pointer;
+}
+[class*="col-"]{
+    padding: 0px;
+    margin:0px;  
+}
+.row{
+    padding:0px;
+    margin:0px;
+}
+.parent-caret{
+    text-align:end;
+    font-size: 16px;
+}
+.accordion-heading{
+    background: linear-gradient(#ffffff, #ededed);
+    color: black;
+    font-weight: 16px;
+    border:1px solid #ededed;
+    cursor:pointer;
+    font-weight: bold;
+    &:hover{
+        & .col-11{
+            text-decoration: underline;
+        }
+    }
+    
+}
+.child-caret{
+    text-align:end;
+    font-size: 14px;
+}
