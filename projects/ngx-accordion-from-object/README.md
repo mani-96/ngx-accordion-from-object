@@ -1,5 +1,5 @@
 ## Accordion From Object
-Makes Accordion using Array of Object
+Makes Accordions using Array of Object. It can assure multiple or single accordion be opened based on user input 
 
 
 ## Working Example

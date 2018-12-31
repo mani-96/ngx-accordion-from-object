@@ -15,5 +15,10 @@
     "javascript",
     "accordion from object"
 
-  ]
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mani-96/ngx-accordion-from-object"
+  },
+  "homepage": "https://github.com/mani-96/ngx-accordion-from-object#readme"
 }
