@@ -1,27 +1,61 @@
-# NgxAccordionFromObject
+## Accordion From Object
+Makes Accordion using Array of Object
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.0.3.
 
-## Development server
+## Working Example
+[View Demo](https://stackblitz.com/edit/accordion-from-object?embed=1&file=src/app/app.component.ts)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Installation
+```bash
+npm i ngx-accordion-from-object
+```
+## Usage
 
-## Code scaffolding
+In `App module` import accordion module
+```python
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxAccordionFromObjectModule } from 'ngx-accordion-from-object'
+...
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+imports: [...
+    BrowserAnimationModule
+    NgxAccordionFromObjectModule
+  ]
+```
+In the `component`
+```python
+<accordion-from-object [heading]="'Accordion Tab Header'" 
+[openMultiple]="true" 
+[accordionObject]="object" 
+[tabField]="'name'"
+[tabValue]="'data'">
+</accordion-from-object>
+```
 
-## Build
+Sample Object for accordionObject
+```python
+object = [{
+    name: 'Heading1',
+    data: 'This is sample accordion'
+  },
+  {
+    name: 'Heading2',
+    data: 'This is sample accordion'
+  },
+  {
+    name: 'Heading3',
+    data: 'This is sample accordion'
+  }
+]
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+## Inputs
+| Input | Description |
+| ----- | ----------- |
+| accordionObject |  Array of objects for accordion component |
+| tabField | String - Key value to be taken from Object as Accordion Title |
+| tabVlaue | String - Key value to be taken from Object as content of Accordion |
+| openMultiple | Set true to keep multiple tabs active. Default false |
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+## Dependencies
+The only dependency is Bootstrap 4 CSS
