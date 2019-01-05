@@ -24,12 +24,14 @@ imports: [...
 ```
 In the `component`
 ```python
-<accordion-from-object [heading]="'Accordion Tab Header'" 
-[openMultiple]="true" 
-[accordionObject]="object" 
-[tabField]="'name'"
-[tabValue]="'data'">
-</accordion-from-object>
+<accordion-from-object 
+[heading]="'tabs'" 
+[openMultiple]="false" 
+[accordionObject]="this.object" 
+[tabField]="'name'" 
+[tabValue]="'data'"
+[showContainerAccordion]="false"
+[showArrows]="true"></accordion-from-object>
 ```
 
 Sample Object for accordionObject
@@ -50,12 +52,14 @@ object = [{
 ```
 
 ## Inputs
-| Input | Description |
-| ----- | ----------- |
-| accordionObject |  Array of objects for accordion component |
-| tabField | String - Key value to be taken from Object as Accordion Title |
-| tabVlaue | String - Key value to be taken from Object as content of Accordion |
-| openMultiple | Set true to keep multiple tabs active. Default false |
+| Input | Type | Description |
+| ----- | ---- | ----------- |
+| accordionObject | | Array of objects for accordion component |
+| tabField | String | Key value to be taken from Object as Accordion Title |
+| tabValue | String | Key value to be taken from Object as content of Accordion |
+| openMultiple | Boolean |Set true to keep multiple tabs active. Default false |
+| showContainerAccordion| Boolean| Show/hide the heading. Default true|
+| showArrows| Boolean | Show/hide arrow on accordion |
 
 ## Dependencies
 The only dependency is Bootstrap 4 CSS

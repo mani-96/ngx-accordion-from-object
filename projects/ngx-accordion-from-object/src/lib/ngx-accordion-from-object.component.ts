@@ -2,17 +2,21 @@ import { Component, OnInit, Input, QueryList, ViewChildren, Output, EventEmitter
 
 import { showInn} from './showIn';
 
+let showArrows = true
+
 @Component({
   selector: 'accordion-tab',
   template: `<div class="row accordion-heading pl-1 pr-1 pb-1 pt-1" (click)="toggle()">    
-  <div class="col-11">
+  <div class="col-11" [ngClass]="{'col-12': !showArrow}">
       {{tabHeader}}
-  </div>    
-  <div class="col-1 pr-1 pull-right child-caret" *ngIf="!openTab">
-          &#9660;
-  </div>    
-  <div class="col-1 pr-1 pull-right child-caret" *ngIf="openTab">
-      &#9650;
+  </div>
+  <div class="col-1" *ngIf="showArrow">    
+    <div class="pr-1 pull-right child-caret" *ngIf="!openTab">
+            &#9660;
+    </div>    
+    <div class="pr-1 pull-right child-caret" *ngIf="openTab">
+        &#9650;
+    </div>
   </div>
 </div>
 <div @showIn class="row value-body" *ngIf="openTab">
@@ -35,50 +39,72 @@ export class AccordionTab{
 
   @Output()
   tabToggle = new EventEmitter<any>();
-
+  showArrow = true;
   openTab = false;
 
   constructor() {}
 
   ngOnInit(){
+    this.showArrow = showArrows
   }
 
   toggle(){
     this.openTab = !this.openTab
-    this.tabToggle.emit({open: this.openTab, index: this.index})
+    this.tabToggle.emit({open: this.openTab, index: this.index});
   }
 }
 
 @Component({
   selector: 'accordion-from-object',
-  template: `<div class="row parent-heading pl-1 pr-1 pt-1 pb-1" (click)="toggle()">
-  <div class="col-11">
+  template: `<div class="row parent-heading pl-1 pr-1 pt-1 pb-1" *ngIf="_showContainerAccordion" (click)="toggle()">
+  <div class="col-11" [ngClass]="{'col-12': !showArrow}">
       {{heading}}
   </div>
-  <div class="col-1 pr-1 pull-right parent-caret" *ngIf="!open">
-      &#9660;
-  </div>    
-  <div class="col-1 pr-1 pull-right parent-caret" *ngIf="open">
-      &#9650;
+  <div class="col-1" *ngIf="showArrow">
+    <div class="pr-1 pull-right parent-caret" *ngIf="!open">
+        &#9660;
+    </div>    
+    <div class="pr-1 pull-right parent-caret" *ngIf="open">
+        &#9650;
+    </div>
   </div>
 </div>
 <div class="full-width" *ngIf="open">
-  <div class="full-width mt-1 pl-1 pr-1" *ngFor="let tab of accordionObject;index as idx">
-      <accordion-tab [tabHeader]="tab[tabField]" [tabValue]="tab[tabValue]" [index]="idx" (tabToggle)="tabToggle($event)"></accordion-tab>
+  <div class="full-width mt-1 pl-1 pr-1" *ngFor="let tab of _accordionObject;index as idx">
+    <accordion-tab [tabHeader]="tab[tabField]" [tabValue]="tab[tabValue]" [index]="idx" (tabToggle)="tabToggle($event)"></accordion-tab>
   </div>
 </div>`,
   styleUrls: ['./ngx-accordion-from-object.component.scss'],
 })
 
-export class NgxAccordionFromObjectComponent implements OnInit {
+export class NgxAccordionFromObjectComponent {
 @ViewChildren(AccordionTab) a: QueryList<AccordionTab>
   // Parent Accordion Heading
   @Input()
-  heading: string;
-  
+  heading: string = '';
+
+  // Show Accordion Container or not ( Hides Heading )
+  @Input()
+  public set showContainerAccordion(value){
+    this._showContainerAccordion = value;
+    if(!value){
+      this.open = true;
+    }
+  }
+
+  // Show/ Hide Arrow on Accordions
+  @Input()
+  public set showArrows(value){
+    showArrows = value;
+    this.showArrow = value;
+  }
+
   // Array of Objects
   @Input()
-  accordionObject = [];
+  public set accordionObject(value){
+    this._accordionObject = value;
+    this.count = 0;
+  }
   
   // Object key name to be shown as accordion heading
   @Input()
@@ -92,17 +118,16 @@ export class NgxAccordionFromObjectComponent implements OnInit {
   openMultiple = false
 
   open = false
-
+  _showContainerAccordion = true;
+  _accordionObject : Array<Object> = [];
+  showArrow = true;
   count = 0;
   currentOpenIndex = null;
 
   constructor() { }
 
-  ngOnInit() {
-      console.log(this.accordionObject);
-  }
-
   toggle(){
+    if(!this._showContainerAccordion) return;
     this.open = !this.open;
     this.count = 0;
     this.currentOpenIndex = null;
