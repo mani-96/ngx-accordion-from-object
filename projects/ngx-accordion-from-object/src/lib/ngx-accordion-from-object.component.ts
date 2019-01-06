@@ -2,15 +2,13 @@ import { Component, OnInit, Input, QueryList, ViewChildren, Output, EventEmitter
 
 import { showInn} from './showIn';
 
-let showArrows = true
-
 @Component({
   selector: 'accordion-tab',
   template: `<div class="row accordion-heading pl-1 pr-1 pb-1 pt-1" (click)="toggle()">    
-  <div class="col-11" [ngClass]="{'col-12': !showArrow}">
+  <div class="col-11" [ngClass]="{'col-12': !showArrows}">
       {{tabHeader}}
   </div>
-  <div class="col-1" *ngIf="showArrow">    
+  <div class="col-1" *ngIf="showArrows">    
     <div class="pr-1 pull-right child-caret" *ngIf="!openTab">
             &#9660;
     </div>    
@@ -37,16 +35,14 @@ export class AccordionTab{
   @Input()
   index;
 
+  @Input()
+  showArrows = true;
+
   @Output()
   tabToggle = new EventEmitter<any>();
-  showArrow = true;
   openTab = false;
 
   constructor() {}
-
-  ngOnInit(){
-    this.showArrow = showArrows
-  }
 
   toggle(){
     this.openTab = !this.openTab
@@ -60,7 +56,7 @@ export class AccordionTab{
   <div class="col-11" [ngClass]="{'col-12': !showArrow}">
       {{heading}}
   </div>
-  <div class="col-1" *ngIf="showArrow">
+  <div class="col-1" *ngIf="showArrows">
     <div class="pr-1 pull-right parent-caret" *ngIf="!open">
         &#9660;
     </div>    
@@ -71,7 +67,7 @@ export class AccordionTab{
 </div>
 <div class="full-width" *ngIf="open">
   <div class="full-width mt-1 pl-1 pr-1" *ngFor="let tab of _accordionObject;index as idx">
-    <accordion-tab [tabHeader]="tab[tabField]" [tabValue]="tab[tabValue]" [index]="idx" (tabToggle)="tabToggle($event)"></accordion-tab>
+    <accordion-tab [tabHeader]="tab[tabField]" [tabValue]="tab[tabValue]" [index]="idx" [showArrows]="showArrows" (tabToggle)="tabToggle($event)"></accordion-tab>
   </div>
 </div>`,
   styleUrls: ['./ngx-accordion-from-object.component.scss'],
@@ -94,10 +90,7 @@ export class NgxAccordionFromObjectComponent {
 
   // Show/ Hide Arrow on Accordions
   @Input()
-  public set showArrows(value){
-    showArrows = value;
-    this.showArrow = value;
-  }
+  showArrows = true
 
   // Array of Objects
   @Input()
