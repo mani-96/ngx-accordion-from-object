@@ -65,7 +65,7 @@ export class AccordionTab{
     </div>
   </div>
 </div>
-<div class="full-width" *ngIf="open">
+<div class="full-width tab-container" *ngIf="open">
   <div class="full-width mt-1 pl-1 pr-1" *ngFor="let tab of _accordionObject;index as idx">
     <accordion-tab [tabHeader]="tab[tabField]" [tabValue]="tab[tabValue]" [index]="idx" [showArrows]="showArrows" (tabToggle)="tabToggle($event)"></accordion-tab>
   </div>
